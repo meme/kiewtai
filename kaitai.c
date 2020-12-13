@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#ifdef WIN32
 #include <windows.h>
 #include <malloc.h>
+#endif
 #include <setjmp.h>
 #include <assert.h>
 #include "duktape.h"
@@ -248,7 +250,7 @@ BOOL KaitaiQueryFormat(PKAITAI_PARSER Format,
     DUK_LOAD_BINOBJ(ctx, pako_inflate);
 
     // Load the requested parser.
-    duk_peval_lstring_noresult(ctx, Format->Start, Format->Size);
+    duk_peval_lstring_noresult(ctx, Format->Start, *Format->Size);
 
     // The name of the current object.
     duk_push_string(ctx, Format->Name);

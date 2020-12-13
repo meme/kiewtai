@@ -20,3 +20,8 @@ build-*/
 parsers
 parsers.h
 *.zip
+*.o
+*.js.c
+gendeps
+jsmin
+command

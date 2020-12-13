@@ -1,6 +1,17 @@
 #ifndef __KAITAI_H
 #define __KAITAI_H
 
+#ifndef WIN32
+typedef char CHAR;
+typedef CHAR *PCHAR;
+typedef const PCHAR LPCSTR;
+typedef unsigned long ULONG;
+typedef void VOID;
+typedef VOID *PVOID;
+typedef int BOOL;
+#define CALLBACK
+#endif
+
 enum {
     KAITAI_FLAG_DEFAULT,
     KAITAI_FLAG_EXPANDARRAYS = 1 << 0,
@@ -9,17 +20,17 @@ enum {
 
 // Convenience macro to load a binary into duktape.
 #define DUK_LOAD_BINOBJ(ctx, name) do {                                 \
-    extern char binary_ ## name ## _js_start[];                         \
-    extern size_t binary_ ## name ## _js_size;                          \
+    extern unsigned char name ## _js[];                              \
+    extern unsigned int  name ## _js_len;                             \
     duk_peval_lstring_noresult(ctx,                                     \
-                               binary_ ## name ## _js_start,            \
-                               (ULONG) &binary_ ## name ## _js_size);   \
+                               name ## _js,                          \
+                               (ULONG) name ## _js_len);             \
     } while (false)
 
 typedef struct _KAITAI_PARSER {
      LPCSTR Name;
      PCHAR Start;
-     ULONG Size;
+     unsigned int *Size;
 } KAITAI_PARSER, *PKAITAI_PARSER;
 
 typedef VOID (CALLBACK *PFIELD_CALLBACK)(PVOID UserPtr, LPCSTR Name, ULONG Start, ULONG End);

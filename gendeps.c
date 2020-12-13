@@ -1,10 +1,16 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#ifdef WIN32
 #include <windows.h>
 #include <malloc.h>
+#endif
 
 #include "duktape.h"
+
+#ifndef WIN32
+#define MAX_PATH 4096
+#endif
 
 // This file is part of Kiewtai, a port of Kaitai to the Hiew hex editor.
 //

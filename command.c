@@ -1,8 +1,14 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#ifdef WIN32
 #include <windows.h>
 #include <malloc.h>
+#else
+#include <stdlib.h>
+#include <string.h>
+#define FALSE 0
+#endif
 
 #include "kaitai.h"
 #include "parsers.h"
